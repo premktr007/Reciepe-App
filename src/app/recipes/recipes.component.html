@@ -2,12 +2,7 @@
     <div class="col-md-5">
         <recipe-list></recipe-list>
     </div>
-    <!-- {{selectedRecipe.name}} -->
     <div class="col-md-7">
-        <recipe-detail *ngIf="selectedRecipe; else notSelected" 
-        [recipe]="selectedRecipe"></recipe-detail>
-        <ng-template #notSelected>
-            <p>Please select a recipe</p>
-        </ng-template>
+        <router-outlet></router-outlet>
     </div>
 </div>
