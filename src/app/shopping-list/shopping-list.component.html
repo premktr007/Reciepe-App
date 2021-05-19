@@ -3,7 +3,8 @@
         <edit-shopping-list></edit-shopping-list>
         <hr>
         <ul class="list-group">
-            <a href="" class="list-group-item" role="button" *ngFor="let ingridient of ingridients">
+            <a class="list-group-item" role="button" 
+            *ngFor="let ingridient of ingridients; let i=index" (click)="onEditItem(i)">
                 {{ingridient.name}} ({{ingridient.quantity}})
             </a>
         </ul>

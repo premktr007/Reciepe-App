@@ -1,0 +1,17 @@
+.save-btn {
+  margin-right: 10px;
+}
+
+.ingridients {
+  margin-bottom: 10px;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 1px solid #d9534f;
+}
+
+.img-preview {
+  display: flex;
+  justify-content: center;
+}

@@ -1,3 +1,11 @@
 .ADC__buttons {
     margin-right: 10px;
 }
+
+input .ng-invalid .ng-touched {
+    border: 1px solid rgb(241, 44, 44) !important;
+}
+
+input .ng-valid .ng-touched {
+    border: 1px solid rgb(39, 240, 39) !important;
+}
