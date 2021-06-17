@@ -1,45 +1,57 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Ingridient } from '../shared/ingridients.model';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipeService {
-  private recipes: Recipe[] = [
-    new Recipe(
-      'Tasty Schnitzel',
-      'A super-tasty Schnitzel - just awesome!',
-      'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
-      [new Ingridient('Meat', 1), new Ingridient('French Fries', 20)]
-    ),
-    new Recipe(
-      'Big Fat Burger',
-      'What else you need to say?',
-      'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
-      [new Ingridient('Buns', 2), new Ingridient('Meat', 1)]
-    ),
-  ]; // shows that var recipes hold array of Recipe objects
+  recipes: Recipe[] = []; // shows that var recipes hold array of Recipe objects
+  recipesArr = new Subject<any>();
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  getRecipes() {
-    return this.recipes;
+  saveRecipes() {
+    return this.http.put('https://recipe-app-db1a0-default-rtdb.firebaseio.com/recipes.json', this.recipes);
   }
 
-  getRecipe(index: number) {
+  setRecipes(recipes: Recipe[]) {
+    if(recipes) {
+      this.recipes = recipes;
+      this.recipesArr.next(this.recipes.slice());
+    }
+  }
+
+  fetchRecipes() {
+    return this.http.get<Recipe[]>('https://recipe-app-db1a0-default-rtdb.firebaseio.com/recipes.json').pipe(
+      tap(recipes => {
+      this.setRecipes(recipes)
+    }));
+  }
+
+  getRecipes() {
+    return this.recipes.slice();
+  }
+
+  getRecipe(index) {
     return this.recipes[index];
   }
 
   addRecipe(recipeObj: Recipe) {
     this.recipes.push(recipeObj);
+    this.recipesArr.next([...this.recipes]);
   }
 
   updateRecipe(index: number, recipeObj: Recipe) {
     this.recipes[index] = recipeObj;
+    this.recipesArr.next([...this.recipes]);
   }
 
   deleteRecipe(index: number) {
     this.recipes.splice(index, 1);
+    this.recipesArr.next([...this.recipes]);
   }
 }

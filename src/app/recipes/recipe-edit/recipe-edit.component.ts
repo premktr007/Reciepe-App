@@ -12,7 +12,6 @@ export class RecipeEditComponent implements OnInit {
   index: number;
   editMode: boolean = false;
   recipeForm: FormGroup;
-
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
@@ -47,7 +46,6 @@ export class RecipeEditComponent implements OnInit {
               name: new FormControl(ingredient.name, Validators.required),
               quantity: new FormControl(ingredient.quantity, [
                 Validators.required,
-                Validators.pattern(/^[1-9]+[0-9]*$/),
               ]),
             })
           );
@@ -81,7 +79,6 @@ export class RecipeEditComponent implements OnInit {
         name: new FormControl(null, Validators.required),
         quantity: new FormControl(null, [
           Validators.required,
-          Validators.pattern(/^[1-9]+[0-9]*$/),
         ]),
       })
     );
