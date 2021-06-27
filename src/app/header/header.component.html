@@ -1,9 +1,16 @@
 <div class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand">Recipe Book</a>
-      <button [disabled]="!showSaveBtn" class="btn btn-sm btn-danger pull-right" (click)="saveData()">
-        {{ showSaveBtn ? 'Save Recipes' : 'Saved!!'}} </button>
+      <ul class="nav navbar-nav">
+        <li> <a class="navbar-brand" routerLink="/">Recipe Book</a> </li>
+        <li *ngIf="!isAuthenticated"> <a routerLink="/auth">Authenticate</a> </li>
+      </ul>
+      <div *ngIf="isAuthenticated" class="pull-right">
+        <button [disabled]="!showSaveBtn" class="btn btn-sm btn-success" (click)="saveData()">
+          {{ showSaveBtn ? 'Save Recipes' : 'Saved!!'}} 
+        </button>
+        <button class="btn btn-sm btn-danger" routerLink="/auth" (click)="onLogout()">Logout</button>
+      </div>
     </div>
   </div>
 </div>

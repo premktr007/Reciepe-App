@@ -12,7 +12,10 @@ import { DropdownDirective } from './shared/dropdown.directive';
 import { AppRoutingModule } from './app-routing.module';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthComponent } from './auth/auth.component';
+import { LoadingComponent } from './shared/loading/loading.component';
+import { InterceptorService } from './auth/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import { HttpClientModule } from '@angular/common/http';
     RecipeItemComponent,
     DropdownDirective,
     RecipeStartComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    AuthComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

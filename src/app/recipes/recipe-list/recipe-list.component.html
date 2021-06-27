@@ -11,5 +11,6 @@
       [index]="i"
       [recipe]="recipe"
     ></recipe-item>
+    <app-loading *ngIf="!recipes" class="loading"></app-loading>
   </div>
 </div>

@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { AuthService } from '../auth/auth.service';
 import { RecipeService } from '../recipes/recipe.service';
 
 @Component({
@@ -7,12 +9,20 @@ import { RecipeService } from '../recipes/recipe.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
-  
-  constructor(private recipeService: RecipeService, private http: HttpClient) { }
-
+export class HeaderComponent implements OnInit, OnDestroy {
   showSaveBtn: boolean = true;
+  isAuthenticated: boolean = false;
+  private userSub: Subscription;
+
+  constructor(
+    private recipeService: RecipeService, 
+    private auth: AuthService) { }
+
+ 
   ngOnInit(): void {
+    this.userSub = this.auth.user.subscribe(user => {
+      this.isAuthenticated = user !== null;
+    });
   }
 
   saveData() {
@@ -22,6 +32,14 @@ export class HeaderComponent implements OnInit {
            this.showSaveBtn = true; 
         }, 3000);
       });    
+  }
+
+  onLogout() {
+    this.auth.logout();
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
   }
 
 }
