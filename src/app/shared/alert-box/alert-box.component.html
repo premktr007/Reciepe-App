@@ -1,0 +1,11 @@
+<div *ngIf="message" class="backdrop" (click)="message = null"></div>
+<div
+  class="alert-box"
+  *ngIf="message"
+  [ngStyle]="{ transform: message ? 'translateX(0)' : 'translateX(100vh)' }"
+>
+  <p>{{ message }}</p>
+  <button class="pull-right btn btn-sm btn-primary" (click)="message = null">
+    close
+  </button>
+</div>

@@ -1,0 +1,28 @@
+.backdrop {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.75);
+}
+
+.alert-box {
+    position: absolute;
+    z-index: 100;
+    top: 30vh;
+    left: 0vw;
+    width: 40vw;
+    padding: 16px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    transition: transform 0.3s ease-out;
+}
+
+@media screen and (max-width: 900px){
+    .alert-box {
+        left: 20vw;
+        width: 60vw;
+    }
+}

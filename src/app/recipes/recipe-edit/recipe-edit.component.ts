@@ -12,6 +12,11 @@ export class RecipeEditComponent implements OnInit {
   index: number;
   editMode: boolean = false;
   recipeForm: FormGroup;
+
+  // fixes error occuring during production build
+  get IngridientControls () {
+    return ( this.recipeForm.get('ingredients') as FormArray).controls; // this line throws error in template
+  }
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
