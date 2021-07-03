@@ -2,7 +2,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+
 import { User } from './user.model';
+import { environment } from 'src/environments/environment';
 
 // interface can be used as data type for reponse. this is optional
 export interface authResponse {
@@ -25,7 +27,7 @@ export class AuthService {
 
   signUp(creds) {
     let url =
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAx7U5rFEqcZNTSvDjJZ1gaZ7tSZs6thTI';
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseAPIKey}`;
 
     return this.http
       .post<authResponse>(url, {
