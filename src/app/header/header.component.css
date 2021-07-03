@@ -7,3 +7,10 @@
     outline: none;
     margin-right: 10px;
 }
+
+@media screen and (max-width: 426px) {
+    .navbar-header {
+        display: flex;
+        justify-content: space-between;
+    }
+}
